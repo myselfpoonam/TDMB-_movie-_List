@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Status from "./Status";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
