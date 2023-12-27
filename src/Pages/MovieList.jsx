@@ -25,6 +25,17 @@ const MovieList = () => {
     fetchData();
   }, []);
 
+  const timeoutId = setTimeout(() => {
+    setLoading(false);
+  }, 1000);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <AiOutlineLoading3Quarters className="text-4xl animate-spin" />
+      </div>
+    );
+  }
   return (
     <div>
       <div className="text-2xl">
@@ -36,38 +47,33 @@ const MovieList = () => {
             </div>
           </div>
         </div>
-        {loading ? (
-          <p>
-            <AiOutlineLoading3Quarters />
-          </p>
-        ) : (
-          <div className="flex flex-wrap justify-center gap-20 pt-36 pb-8">
-            {data.map((items) => (
-              <div key={items.id}>
-                <Link to={`/moviedetails/${items.id}`}>
-                  <div className="relative group ">
-                    <div className="w-[400px] h-[600px] shadow-xl rounded-xl overflow-hidden transition-opacity duration-300 group-hover:opacity-70">
-                      <img
-                        src={`https://image.tmdb.org/t/p/w500${items.poster_path}`}
-                        className="w-full h-full transition-all duration-300 transform scale-100 group-hover:scale-110 "
-                        alt={items.title}
-                      />
-                    </div>
-                    <div className="absolute bottom-0 left-0 right-0 backdrop-opacity-95 text-black text-3xl text-center font-bold bg-white/30 p-4 hidden group-hover:block">
-                      {items.title}
-                    </div>
+
+        <div className="flex flex-wrap justify-center gap-20 pt-36 pb-8">
+          {data.map((items) => (
+            <div key={items.id}>
+              <Link to={`/moviedetails/${items.id}`}>
+                <div className="relative group cursor-pointer">
+                  <div className="w-[400px] h-[600px] shadow-xl rounded-xl overflow-hidden transition-opacity duration-300 group-hover:opacity-70">
+                    <img
+                      src={`https://image.tmdb.org/t/p/w500${items.poster_path}`}
+                      className="w-full h-full transition-all duration-300 transform scale-100 group-hover:scale-110 "
+                      alt={items.title}
+                    />
                   </div>
-                  <div className="text-font text-3xl mt-2">
-                    <span className="font-bold text-red-800">
-                      Release Date :{" "}
-                    </span>
-                    {items.release_date}
+                  <div className="absolute bottom-0 left-0 right-0 backdrop-opacity-95 text-black text-3xl text-center font-bold bg-white/30 p-4 hidden group-hover:block">
+                    {items.title}
                   </div>
-                </Link>
-              </div>
-            ))}
-          </div>
-        )}
+                </div>
+                <div className="text-font text-3xl mt-2">
+                  <span className="font-bold text-red-800">
+                    Release Date :{" "}
+                  </span>
+                  {items.release_date}
+                </div>
+              </Link>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

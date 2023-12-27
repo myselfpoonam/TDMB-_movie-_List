@@ -3,7 +3,10 @@ import Status from "./Status";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const MovieDescription = ({ details }) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const timeoutId = setTimeout(() => {
+    setLoading(false);
+  }, 1000);
 
   if (loading) {
     return (
@@ -65,14 +68,14 @@ const MovieDescription = ({ details }) => {
         </table>
         <div className="mb-8">
           <h1 className="font-bold">Production Companies :</h1>
-          <div className="flex flex-wrap gap-24 mt-4">
+          <div className="flex flex-wrap gap-20 mt-4">
             {details?.production_companies &&
               details.production_companies.map((value, index) => (
                 <div key={index} className="flex items-center">
                   <h1 className="">{value.name} : </h1>
                   <img
                     src={`https://image.tmdb.org/t/p/w500${value.logo_path}`}
-                    alt={`No logo available`}
+                    alt={"Logo is not available"}
                     className="ml-2 w-44 h-26"
                   />
                 </div>
@@ -88,7 +91,7 @@ const MovieDescription = ({ details }) => {
                   <img
                     src={`https://image.tmdb.org/t/p/w500${details?.backdrop_path}`}
                     alt="Movie Backdrop"
-                    className="w-full h-50 object-cover mt-4 shadow-xl"
+                    className="w-full h-50 object-cover mt-4 "
                   />
                 ) : (
                   <p>No backdrop image available</p>
